@@ -59,6 +59,10 @@ on init
     # fastcharge switch
     chown system radio /sys/class/sec/switch/afc_disable
 
+    # Hide selinux status
+    chmod 0640 /sys/fs/selinux/enforce
+    chmod 0440 /sys/fs/selinux/policy
+
     # vibrator
     chown system system /sys/class/timed_output/vibrator/intensity
     chown system system /sys/class/timed_output/vibrator/motor_type
@@ -984,7 +988,7 @@ on property:sys.boot_completed=1
     chmod 0644 /sys/kernel/gpu/gpu_min_clock
 
 # LPM
-service charger /system/bin/charger
+service charger /system/bin/reboot
     class sec-charger
     user root
     group system radio input
